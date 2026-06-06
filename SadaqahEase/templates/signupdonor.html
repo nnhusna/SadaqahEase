@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donor Sign Up - SadaqahEase</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+  
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: rgb(255, 255, 255);
+    }
+  
+    header a {
+      text-decoration: none;
+    }
+  
+    li {
+      list-style: none;
+    }
+  
+    .flex_space {
+      display: flex;
+      justify-content: space-between;
+    }
+  
+    button {
+      border: none;
+      background: none;
+      outline: none;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+  
+    .primary_btn {
+      padding: 15px 40px;
+      background: #1c5451;
+      font-weight: bold;
+      color: white;
+      border-radius: 6px;
+    }
+  
+    .primary_btn:hover {
+      background-color: #12686e;
+    }
+  
+    .registerbtn {
+      padding: 14px 30px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #1c5451;
+      border: 2px solid rgb(28, 84, 81);
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+  
+    .registerbtn:hover {
+      background-color: #1c5451;
+      color: white;
+    }
+  
+    header {
+      height: 90px;
+      line-height: 90px;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgb(179, 229, 216);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    header img {
+      padding: 10px;
+      width: 250px;
+      height: 80px;
+    }
+  
+    header ul {
+      display: inline-block;
+    }
+  
+    header ul li {
+      display: inline-block;
+      text-transform: uppercase;
+    }
+  
+    header ul li a {
+      color: grey;
+      margin: 0 10px;
+      transition: 0.5s;
+    }
+  
+    header ul li a:hover {
+      color: #12686e;
+    }
+  
+    header i {
+      margin: 0 20px;
+    }
+  
+    header button {
+      padding: 13px 40px;
+    }
+  
+    header .navbar span {
+      display: none;
+    }
+  
+    @media only screen and (max-width: 768px) {
+      header ul {
+        position: absolute;
+        top: 100px;
+        left: 0;
+        width: 100%;
+        height: 900px;
+        background: rgb(179, 229, 216);
+        overflow: hidden;
+        transition: max-height 0.5s;
+        text-align: center;
+        z-index: 9;
+      }
+  
+      header ul li {
+        display: block;
+      }
+  
+      header ul li a {
+        color: white;
+      }
+  
+      header .navbar span {
+        color: black;
+        display: block;
+        cursor: pointer;
+        line-height: 90px;
+        font-size: 25px;
+      }
+    }
+  
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+  
+    .signup-wrapper {
+      display: flex;
+      background: #f1f1f1;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      width: 100%;
+    }
+  
+    .signup-left {
+      width: 50%;
+    }
+  
+    .signup-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+    }
+  
+    .signup-right {
+      width: 50%;
+      padding: 40px;
+    }
+  
+    .signup-right h2 {
+      color: #1c5451;
+      margin-bottom: 30px;
+    }
+  
+    .signup-right label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #333;
+    }
+  
+    .signup-right input,
+    .signup-right select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+  
+    .signup-right button {
+      width: 100%;
+      padding: 14px;
+      background-color: #1c5451;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  
+    .signup-right button:hover {
+      background-color: #12686e;
+    }
+  
+    @media screen and (max-width: 768px) {
+      .signup-wrapper {
+        flex-direction: column;
+        max-width: 90%;
+      }
+  
+      .signup-left,
+      .signup-right {
+        width: 100%;
+      }
+  
+      .signup-left img {
+        border-radius: 15px 15px 0 0;
+      }
+    }
+
+      html {
+  scroll-behavior: smooth;
+}
+  </style>
+</head>
+<body>
+  {% load static %}
+  <header>
+    <div class="content flex_space">
+      <div class="logo">
+        <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo"/>
+      </div>
+      <div class="navbar">
+        <ul id="menulist">
+          <li><a href="{% url 'SadaqahEase' %}">Home</a></li>
+          <li><a href="{% url 'login_page' %}">Campaign</a></li>
+          <li><a href="{% url 'login_page' %}">Donate</a></li>
+          <li><a href="{% url 'SadaqahEase' %}#about-section">About Us</a></li>
+          <li><a href="{% url 'SadaqahEase' %}#contact-section">Contact Us</a></li>
+          <li><a href="{% url 'login_page' %}"><button class="primary_btn">Login</button></a></li>
+          <li><a href="{% url 'signup_donor' %}"><button class="registerbtn">Register</button></a></li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    function menutoggle() {
+      const menu = document.getElementById("menulist");
+      if (menu.style.maxHeight === "0px" || menu.style.maxHeight === "") {
+        menu.style.maxHeight = "500px";
+      } else {
+        menu.style.maxHeight = "0px";
+      }
+    }
+
+    window.onload = function () {
+      if (window.innerWidth <= 768) {
+        document.getElementById("menulist").style.maxHeight = "0px";
+      }
+    };
+  </script>
+
+  <div class="container">
+    <div class="signup-wrapper">
+      <div class="signup-left">
+        <img src="{% static 'signuppic.png' %}" alt="Signup Image">
+      </div>
+      <div class="signup-right">
+        <h2>Donor Sign Up</h2>
+        <form method="post">
+          {% csrf_token %}
+          <label for="full_name">Full Name</label>
+          <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+
+          <label for="dob">Date of Birth</label>
+          <input type="date" id="dob" name="dob" required />
+
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+          <label for="username">Username</label>
+<input type="text" id="username" name="username" placeholder="Choose a username" required />
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Create a password" required />
+
+          <label for="gender">Gender</label>
+          <select name="gender" id="gender" required>
+            <option value="">-- Select Gender --</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="prefer_not">Prefer not to say</option>
+          </select>
+
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<footer  id="contact-section" style="background: rgb(179, 229, 216); color: #1c5451; padding: 60px 30px 30px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; max-width: 1200px; margin: auto;">
+    
+
+    <div style="flex: 1 1 300px;">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo" style="width: 180px; margin-bottom: 15px;">
+      <p style="line-height: 1.7; font-size: 14px; color: #1c5451;">
+        SadaqahEase is your trusted platform to support mosque initiatives, community programs, and charitable causes. 
+        Empower change through transparent and impactful giving.
+      </p>
+    </div>
+
+
+    <div style="flex: 1 1 150px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><a href="{% url 'SadaqahEase' %}" style="color: #1c5451; text-decoration: none;">Home</a></li>
+        <li><a href="{% url 'login_page' %}" style="color: #1c5451; text-decoration: none;">Campaigns</a></li>
+        <li><a href="{% url 'login_page' %}" style="color: #1c5451; text-decoration: none;">Donate</a></li>
+        <li><a href="{% url 'SadaqahEase' %}#about-section" style="color: #1c5451; text-decoration: none;">About Us</a></li>
+        <li><a href="{% url 'SadaqahEase' %}#contact-section" style="color: #1c5451; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+
+    <div style="flex: 1 1 300px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Contact Us</h3>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-map-marker-alt"></i> Masjid Bandar Saujana Putra, Selangor</p>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-envelope"></i> info@sadaqahEase.org</p>
+      <p style="font-size: 14px;"><i class="fas fa-phone-alt"></i> +60 12-345 6789</p>
+    </div>
+
+  </div>
+
+  <hr style="margin: 40px auto 20px; border-color: rgba(28, 84, 81, 0.2); width: 90%;">
+  <p style="text-align: center; font-size: 13px; color: #1c5451;">&copy; 2025 SadaqahEase. All rights reserved.</p>
+</footer>
+</body>
+</html>

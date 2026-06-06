@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Donate Page - Donor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #fff;
+    }
+
+    header a {
+      text-decoration: none;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .flex_space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      background: none;
+      outline: none;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    .primary_btn {
+      padding: 10px 20px;
+      background: #1c5451;
+      font-weight: bold;
+      color: white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      gap: 8px;
+    }
+
+    .primary_btn i {
+      color: white;
+    }
+
+    .primary_btn:hover {
+      background-color: #12686e;
+    }
+
+    .welcome-link {
+      text-decoration: none;
+    }
+
+    .welcome-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1c5451;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .welcome-message i {
+      font-size: 24px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .welcome-message:hover i {
+      transform: scale(1.2);
+      color: #12686e;
+    }
+
+    header {
+      height: 90px;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgb(179, 229, 216);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header img {
+      padding: 10px ;
+      width: 250px;
+      height: 80px;
+    }
+
+    header ul {
+      display: flex;
+      align-items: center;
+    }
+
+    header ul li {
+      margin: 0 10px;
+      text-transform: uppercase;
+    }
+
+    header ul li a {
+      color: grey;
+      transition: 0.3s ease;
+    }
+
+    header ul li a:hover {
+      color: #12686e;
+    }
+
+    header .navbar span {
+      display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+      header ul {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        background: rgb(179, 229, 216);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out;
+        text-align: center;
+        z-index: 9;
+      }
+
+      header ul li {
+        margin: 15px 0;
+      }
+
+      header .navbar span {
+        display: block;
+        color: black;
+        font-size: 25px;
+        cursor: pointer;
+        line-height: 90px;
+      }
+    }
+
+    .donate-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .donate-container h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #1c5451;
+        font-size: 32px;
+        font-weight: 600;
+        }
+
+        .donate-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: space-between;
+        }
+
+        .donate-left, .donate-right {
+        flex: 1;
+        min-width: 300px;
+        }
+
+        .qr-section {
+        text-align: center;
+        background: #f7fdfd;
+        border: 2px dashed #d1ebe6;
+        padding: 25px;
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+        }
+
+        .qr-section:hover {
+        transform: scale(1.02);
+        }
+
+        .qr-section img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        margin-bottom: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-section p {
+        font-size: 15px;
+        color: #444;
+        line-height: 1.6;
+        }
+
+        form label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+        }
+
+        form input[type="text"],
+        form input[type="email"],
+        form input[type="number"],
+        form input[type="file"] {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 18px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        form input:focus {
+        border-color: #1c5451;
+        box-shadow: 0 0 5px rgba(28, 84, 81, 0.3);
+        outline: none;
+        }
+
+        form input[type="file"] {
+        background-color: #f9f9f9;
+        padding: 10px;
+        }
+
+        form input[type="checkbox"] {
+        margin-right: 8px;
+        accent-color: #1c5451;
+        transform: scale(1.2);
+        }
+
+        .primary_btn {
+        padding: 14px 20px;
+        background-color: #1c5451;
+        color: #fff;
+        font-weight: bold;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .primary_btn:hover {
+        background-color: #12686e;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(18, 104, 110, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+        .donate-content {
+            flex-direction: column;
+        }
+
+        .qr-section img {
+            width: 150px;
+            height: 150px;
+        }
+        }
+
+        html {
+  scroll-behavior: smooth;
+}
+
+
+  </style>
+  
+</head>
+<body>
+  {% load static %}
+  <header>
+    <div class="content flex_space">
+      <div class="logo">
+        <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo" />
+      </div>
+      <div class="navbar">
+        <ul id="menulist">
+<li><a href="{% url 'donor_mainpage' %}">Home</a></li>
+          <li><a href="{% url 'donor_campaigns' %}">Campaign</a></li>
+          <li><a href="{% url 'donate_page' %}">Donate</a></li>
+          <li><a href="{% url 'donor_mainpage' %}#about-section">About Us</a></li>
+          <li><a href="{% url 'donor_mainpage' %}#contact-section">Contact Us</a></li>
+          <li>
+            <a href="{% url 'donor_history' %}" class="welcome-link">
+              <div class="welcome-message">
+                <i class="fas fa-history"></i>
+                History
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'donorprofile' %}" class="welcome-link">
+              <div class="welcome-message">
+                <i class="fas fa-user-circle"></i>
+                Welcome, {{ donor.fullname }}!
+              </div>
+            </a>
+          </li>
+          <li>
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit" class="primary_btn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </button>
+            </form>
+          </li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <script>
+    function menutoggle() {
+      const menu = document.getElementById("menulist");
+      if (menu.style.maxHeight === "0px" || menu.style.maxHeight === "") {
+        menu.style.maxHeight = "500px";
+      } else {
+        menu.style.maxHeight = "0px";
+      }
+    }
+
+    window.onload = function () {
+      if (window.innerWidth <= 768) {
+        document.getElementById("menulist").style.maxHeight = "0px";
+      }
+    };
+  </script>
+    </script>
+    <div class="donate-container">
+        <h2>Donate to SadaqahEase</h2>
+        <div class="donate-content" style="display: flex; flex-wrap: wrap; gap: 30px;">
+      
+
+          <div class="donate-left" style="flex: 1; min-width: 260px;">
+            <div class="qr-section" style="text-align: center;">
+              <img src="{% static 'qrsadaqah.png' %}" alt="QR Code" style="width: 400px; height: 400px; object-fit: contain;" />
+              <p style="margin-top: 15px; font-size: 12px; color: #555; line-height: 1.5;">
+                This donation goes towards our <strong>“Sedekah” General Donation Fund</strong>.<br><br>
+                Your contributions support the mosque’s daily operations, including electricity, water, janitorial services, basic maintenance, and other community needs. Every RM you contribute becomes a continuous charity (Sadaqah Jariyah) benefiting not just the mosque but all who pray and benefit from it. 
+                <br><br>Thank you for your generosity and may your giving be accepted by Allah.
+              </p>
+            </div>
+          </div>
+      
+
+          
+        <div class="donate-right" style="flex: 1; min-width: 300px;">
+            <form method="POST" action="{% url 'submit_donation' %}" enctype="multipart/form-data" id="donation-form">
+            {% csrf_token %}
+        
+            <label for="anonymous">
+                <input type="checkbox" id="anonymous" name="anonymous" onchange="toggleAnonymous()"> Donate as Anonymous
+            </label>
+        
+            <div id="donor-info">
+                <label>Full Name</label>
+                <input type="text" name="fullname" value="{{ donor.fullname }}" {% if donor %}readonly{% endif %} required>
+        
+                <label>Phone</label>
+                <input type="text" name="phone" value="{{ donor.phone }}" {% if donor %}readonly{% endif %} required>
+        
+                <label>Email</label>
+                <input type="email" name="email" value="{{ donor.email }}" {% if donor %}readonly{% endif %} required>
+            </div>
+        
+            <label>Date of Donation</label>
+            <input type="date" name="date_donated" required>
+        
+            <label>Amount (RM)</label>
+            <input type="number" name="amount" step="0.01" required>
+        
+            <label>Upload Receipt</label>
+            <input type="file" name="receipt" accept="image/*" required>
+        
+            <button type="submit" class="primary_btn" style="margin-top: 15px;">Submit Donation</button>
+            </form>
+        </div>
+        
+      
+        </div>
+      </div>
+      
+      <script>
+        function toggleAnonymous() {
+          const isChecked = document.getElementById("anonymous").checked;
+          const donorSection = document.getElementById("donor-info");
+          const inputs = donorSection.querySelectorAll("input");
+      
+          const values = [
+            "{{ donor.fullname|default:''|escapejs }}",
+            "{{ donor.phone|default:''|escapejs }}",
+            "{{ donor.email|default:''|escapejs }}"
+          ];
+      
+          inputs.forEach((input, index) => {
+            if (isChecked) {
+              input.readOnly = true;
+              input.value = "Anonymous";
+            } else {
+              input.readOnly = false;
+              input.value = values[index];
+            }
+          });
+        }
+      </script>
+
+
+<footer  id="contact-section" style="background: rgb(179, 229, 216); color: #1c5451; padding: 60px 30px 30px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; max-width: 1200px; margin: auto;">
+    
+
+    <div style="flex: 1 1 300px;">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo" style="width: 180px; margin-bottom: 15px;">
+      <p style="line-height: 1.7; font-size: 14px; color: #1c5451;">
+        SadaqahEase is your trusted platform to support mosque initiatives, community programs, and charitable causes. 
+        Empower change through transparent and impactful giving.
+      </p>
+    </div>
+
+    <div style="flex: 1 1 150px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><a href="{% url 'donor_mainpage' %}" style="color: #1c5451; text-decoration: none;">Home</a></li>
+        <li><a href="{% url 'donor_campaigns' %}" style="color: #1c5451; text-decoration: none;">Campaigns</a></li>
+        <li><a href="{% url 'donate_page' %}" style="color: #1c5451; text-decoration: none;">Donate</a></li>
+        <li><a href="{% url 'donor_mainpage' %}#about-section" style="color: #1c5451; text-decoration: none;">About Us</a></li>
+        <li><a href="{% url 'donor_mainpage' %}#contact-section" style="color: #1c5451; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+    <div style="flex: 1 1 300px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Contact Us</h3>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-map-marker-alt"></i> Masjid Bandar Saujana Putra, Selangor</p>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-envelope"></i> info@sadaqahEase.org</p>
+      <p style="font-size: 14px;"><i class="fas fa-phone-alt"></i> +60 12-345 6789</p>
+    </div>
+
+  </div>
+
+  <hr style="margin: 40px auto 20px; border-color: rgba(28, 84, 81, 0.2); width: 90%;">
+  <p style="text-align: center; font-size: 13px; color: #1c5451;">&copy; 2025 SadaqahEase. All rights reserved.</p>
+</footer>
+  
+      
+      
+      
+</body>
+</html>
+

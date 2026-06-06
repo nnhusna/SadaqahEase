@@ -1,0 +1,428 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Manage Campaigns - Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #fff;
+    }
+
+    header a {
+      text-decoration: none;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .flex_space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      background: none;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    .primary_btn {
+      padding: 10px 20px;
+      background: #1c5451;
+      font-weight: bold;
+      color: white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      gap: 8px;
+    }
+
+    .primary_btn:hover {
+      background-color: #12686e;
+    }
+
+    .welcome-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1c5451;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .welcome-message i {
+      font-size: 24px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .welcome-message:hover i {
+      transform: scale(1.2);
+      color: #12686e;
+    }
+
+    header {
+      height: 90px;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgb(179, 229, 216);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header img {
+      padding: 10px;
+      width: 250px;
+      height: 80px;
+    }
+
+    header ul {
+      display: flex;
+      align-items: center;
+    }
+
+    header ul li {
+      margin: 0 10px;
+      text-transform: uppercase;
+    }
+
+    header ul li a {
+      color: grey;
+      transition: 0.3s;
+    }
+
+    header ul li a:hover {
+      color: #12686e;
+    }
+
+    header .navbar span {
+      display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+      header ul {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        background: rgb(179, 229, 216);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s;
+        text-align: center;
+        z-index: 9;
+      }
+
+      header ul li {
+        margin: 15px 0;
+      }
+
+      header .navbar span {
+        display: block;
+        color: black;
+        font-size: 25px;
+        cursor: pointer;
+        line-height: 90px;
+      }
+    }
+
+    main {
+  max-width: 1500px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #fdfdfd;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+main h1 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  color: #1c5451;
+  text-align: left;
+}
+
+.campaign-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+.campaign-table th,
+.campaign-table td {
+  padding: 12px 16px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  font-size: 14px;
+  color: #333;
+}
+
+.campaign-table th {
+  background-color: #1c5451;
+  color: white;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.campaign-table tr:hover td {
+  background-color: #ecf9f8;
+}
+
+.campaign-table td:last-child {
+  text-align: center;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.status-pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-completed {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.status-expired {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.action-form {
+  display: inline-block;
+  margin: 2px;
+}
+
+.action-form .primary_btn {
+  padding: 6px 14px;
+  font-size: 13px;
+}
+
+.action-form .reject-btn {
+  background-color: #b53838;
+}
+
+.action-form .reject-btn:hover {
+  background-color: #a12a2a;
+}
+  </style>
+</head>
+<body>
+<header>
+  <div class="content flex_space">
+    <div class="logo">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo"/>
+    </div>
+    <div class="navbar">
+      <ul id="menulist">
+<li><a href="{% url 'admin_mainpage' %}">Home</a></li>
+        <li><a href="{% url 'manage_donors' %}">Donors</a></li>
+        <li><a href="{% url 'admin_manage_campaigns' %}">Campaigns</a></li>
+        <li><a href="{% url 'report_donation_view' %}">Donation Report</a></li>
+        <li>
+          <div class="welcome-message">
+            <i class="fas fa-user-circle"></i>
+            Welcome, {{ admin.name }}!
+          </div>
+        </li>
+        <li>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="primary_btn">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </form>
+        </li>
+      </ul>
+      <span class="fa fa-bars" onclick="menutoggle()"></span>
+    </div>
+  </div>
+</header>
+
+<script>
+  function menutoggle() {
+    const menu = document.getElementById("menulist");
+    if (menu.style.maxHeight === "0px" || menu.style.maxHeight === "") {
+      menu.style.maxHeight = "500px";
+    } else {
+      menu.style.maxHeight = "0px";
+    }
+  }
+
+  window.onload = function () {
+    if (window.innerWidth <= 768) {
+      document.getElementById("menulist").style.maxHeight = "0px";
+    }
+  };
+</script>
+{% if messages %}
+  <div style="max-width: 900px; margin: 20px auto;">
+    {% for message in messages %}
+      <div style="
+        padding: 15px;
+        background-color: {% if message.tags == 'success' %}#d4edda
+                          {% elif message.tags == 'error' %}#f8d7da
+                          {% else %}#cce5ff{% endif %};
+        color: {% if message.tags == 'success' %}#155724
+               {% elif message.tags == 'error' %}#721c24
+               {% else %}#004085{% endif %};
+        border: 1px solid {% if message.tags == 'success' %}#c3e6cb
+                          {% elif message.tags == 'error' %}#f5c6cb
+                          {% else %}#b8daff{% endif %};
+        border-radius: 5px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 500;
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}  
+  </div>
+{% endif %}
+<main>
+  <h1>Manage Campaigns</h1>
+
+  {% if campaigns %}
+  <table class="campaign-table">
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Goal (RM)</th>
+    <th>Raised (RM)</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+    <th>Status</th>
+    <th>Progress Status</th>
+    <th>Action</th>
+  </tr>
+</thead>
+<tbody>
+  {% for campaign in campaigns %}
+  <tr>
+    <td>{{ campaign.title }}</td>
+    <td>{{ campaign.description }}</td>
+    <td>RM {{ campaign.goal_amount|floatformat:2 }}</td>
+    <td>RM {{ campaign.current_amount|default_if_none:"0.00"|floatformat:2 }}</td>
+    <td>{{ campaign.start_date }}</td>
+    <td>{{ campaign.end_date }}</td>
+    <td>
+      {% if campaign.status == 'Pending' %}
+          <span class="status-badge status-pending">Pending</span>
+      {% elif campaign.status == 'Approved' %}
+          <span class="status-badge status-active">Approved</span>
+      {% elif campaign.status == 'Rejected' %}
+          <span class="status-badge status-expired">Rejected</span>
+      {% else %}
+          <span class="status-badge">{{ campaign.status }}</span>
+      {% endif %}
+    </td>
+    <td>
+      {% if campaign.progress_status == 'Ongoing' %}
+          <span class="status-badge status-active">Ongoing</span>
+      {% elif campaign.progress_status == 'Completed' %}
+          <span class="status-badge status-completed">Completed</span>
+      {% elif campaign.progress_status == 'Upcoming' %}
+          <span class="status-badge status-pending">Upcoming</span>
+      {% else %}
+          <span class="status-badge">-</span>
+      {% endif %}
+    </td>
+    <td>
+      {% if campaign.status == 'Pending' %}
+      <form method="post" action="{% url 'approve_campaign' campaign.campaignid %}" class="action-form">
+        {% csrf_token %}
+        <button type="submit" class="primary_btn">Approve</button>
+      </form>
+      <form method="post" action="{% url 'reject_campaign' campaign.campaignid %}" class="action-form">
+        {% csrf_token %}
+        <button type="submit" class="primary_btn reject-btn">Reject</button>
+      </form>
+      {% else %}
+        <span style="color: grey;">No actions</span>
+      {% endif %}
+    </td>
+  </tr>
+  {% endfor %}
+</tbody>
+
+  </table>
+  {% else %}
+    <p>No campaigns found.</p>
+  {% endif %}
+</main>
+
+
+<footer  id="contact-section" style="background: rgb(179, 229, 216); color: #1c5451; padding: 60px 30px 30px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; max-width: 1200px; margin: auto;">
+    
+   
+    <div style="flex: 1 1 300px;">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo" style="width: 180px; margin-bottom: 15px;">
+      <p style="line-height: 1.7; font-size: 14px; color: #1c5451;">
+        SadaqahEase is your trusted platform to support mosque initiatives, community programs, and charitable causes. 
+        Empower change through transparent and impactful giving.
+      </p>
+    </div>
+
+   
+    <div style="flex: 1 1 150px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><a href="{% url 'admin_mainpage' %}"style="color: #1c5451; text-decoration: none;">Home</a></li>
+        <li><a href="{% url 'manage_donors' %}"style="color: #1c5451; text-decoration: none;">Donors</a></li>
+        <li><a href="{% url 'admin_manage_campaigns' %}"style="color: #1c5451; text-decoration: none;">Campaigns</a></li>
+        <li><a href="{% url 'report_donation_view' %}"style="color: #1c5451; text-decoration: none;">Reports</a></li>
+        
+      </ul>
+    </div>
+
+    
+    <div style="flex: 1 1 300px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Contact Us</h3>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-map-marker-alt"></i> Masjid Bandar Saujana Putra, Selangor</p>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-envelope"></i> info@sadaqahEase.org</p>
+      <p style="font-size: 14px;"><i class="fas fa-phone-alt"></i> +60 12-345 6789</p>
+    </div>
+
+  </div>
+
+  <hr style="margin: 40px auto 20px; border-color: rgba(28, 84, 81, 0.2); width: 90%;">
+  <p style="text-align: center; font-size: 13px; color: #1c5451;">&copy; 2025 SadaqahEase. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

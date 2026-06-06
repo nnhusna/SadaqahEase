@@ -1,0 +1,573 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Allocate Fund - Treasurer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background-color: #fff;
+    }
+
+    header a {
+      text-decoration: none;
+    }
+
+    li {
+      list-style: none;
+    }
+
+    .flex_space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      background: none;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    .primary_btn {
+      padding: 10px 20px;
+      background: #1c5451;
+      font-weight: bold;
+      color: white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      gap: 8px;
+    }
+
+    .primary_btn:hover {
+      background-color: #12686e;
+    }
+
+    .welcome-message {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #1c5451;
+      font-weight: bold;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .welcome-message i {
+      font-size: 24px;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .welcome-message:hover i {
+      transform: scale(1.2);
+      color: #12686e;
+    }
+
+    header {
+      height: 90px;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgb(179, 229, 216);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header img {
+      padding: 10px;
+      width: 250px;
+      height: 80px;
+    }
+
+    header ul {
+      display: flex;
+      align-items: center;
+    }
+
+    header ul li {
+      margin: 0 10px;
+      text-transform: uppercase;
+    }
+
+    header ul li a {
+      color: grey;
+      transition: 0.3s;
+    }
+
+    header ul li a:hover {
+      color: #12686e;
+    }
+
+    header .navbar span {
+      display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+      header ul {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        background: rgb(179, 229, 216);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s;
+        text-align: center;
+        z-index: 9;
+      }
+
+      header ul li {
+        margin: 15px 0;
+      }
+
+      header .navbar span {
+        display: block;
+        color: black;
+        font-size: 25px;
+        cursor: pointer;
+        line-height: 90px;
+      }
+    }
+
+    .summary-section {
+      max-width: 1100px;
+      margin: 40px auto 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .summary-box {
+      flex: 1;
+      min-width: 200px;
+      background: #e0f7f5;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease;
+      color: #1c5451;
+      background-color: #f0f0f0;
+    }
+
+    .summary-box h3 {
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .summary-box p {
+     font-size: 20px;
+     font-weight: bold;
+     margin-top: 5px;
+    }
+
+
+    .summary-box.education      { background-color: #d7f9d2; } /* Pastel Green */
+    .summary-box.maintenance    { background-color: #ffe0b2; } /* Pastel Orange */
+    .summary-box.asnaf          { background-color: #cce4ff; } /* Pastel Blue */
+    .summary-box.utilities      { background-color: #e6d5f7; } /* Pastel Purple */
+    .summary-box.community      { background-color: #f9c6c9; } /* Pastel Red */
+    .summary-box.others         { background-color: #d0e0e3; } /* Pastel Grey Blue */
+    .summary-box.balance        { background-color: #b2dfdb; } /* Soft Teal */
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      padding: 25px;
+      background: #fdfdfd;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    h1 {
+      color: #1c5451;
+      font-size: 26px;
+      margin-bottom: 25px;
+    }
+
+    .filter-form {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      margin-bottom: 30px;
+    }
+
+    .filter-form select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .allocate-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .allocate-form label {
+      color: #1c5451;
+      font-weight: 500;
+      margin-bottom: 6px;
+      font-size: 14px;
+      display: block;
+    }
+
+    .allocate-form input,
+    .allocate-form select,
+    .allocate-form textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #c4dad7;
+      border-radius: 6px;
+      background-color: #f9fdfd;
+      font-size: 14px;
+    }
+
+    .allocate-form textarea {
+      resize: vertical;
+    }
+
+    .form-submit {
+      grid-column: span 2;
+      text-align: right;
+      margin-top: -10px;
+    }
+
+    .financial-table {
+         width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 10px;
+    }
+
+    .financial-table th,
+    .financial-table td {
+        padding: 12px 16px;
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .financial-table th {
+        background-color: #1c5451;
+        color: white;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+
+    .financial-table td:last-child {
+            text-align: center;
+        }
+
+
+    .financial-table tr:hover td {
+    background-color: #ecf9f8;
+    }
+
+
+    .action-btn {
+        padding: 6px 14px;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 13px;
+        margin: 0 4px;
+        text-decoration: none;
+        display: inline-block;
+        transition: background-color 0.3s ease;
+    }
+
+    .edit-btn {
+      background-color: #1c5451;
+    }
+
+    .delete-btn {
+      background-color: #b53838;
+      margin-top: 10px;
+      
+    }
+
+    .edit-btn:hover {
+      background-color: #12686e;
+    }
+
+    .delete-btn:hover {
+      background-color: #a12a2a;
+
+    }
+
+
+    .form-submit button.primary_btn {
+        padding: 10px 25px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 6px;
+        margin-top: 40px;
+        }
+
+    @media (max-width: 768px) {
+    .form-submit {
+        grid-column: span 1;
+        text-align: center;
+        margin-top: 0;
+        }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="content flex_space">
+    <div class="logo">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo">
+    </div>
+    <div class="navbar">
+      <ul id="menulist">
+        <li><a href="{% url 'treasurer_mainpage' %}">Home</a></li>
+        <li><a href="{% url 'record_donation_page' %}">Donation</a></li>
+        <li><a href="{% url 'financial_page' %}">Financial</a></li>
+        <li><a href="{% url 'manage_campaigns' %}">Campaign</a></li>
+        <li><a href="{% url 'allocate_fund_page' %}">Fund</a></li>
+        <li>
+          <div class="welcome-message">
+            <i class="fas fa-user-circle"></i>
+            Welcome, {{ treasurer.name }}!
+          </div>
+        </li>
+        <li>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="primary_btn">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </form>
+        </li>
+      </ul>
+      <span class="fa fa-bars" onclick="menutoggle()"></span>
+    </div>
+  </div>
+</header>
+
+<script>
+  function menutoggle() {
+    const menu = document.getElementById("menulist");
+    if (menu.style.maxHeight === "0px" || menu.style.maxHeight === "") {
+      menu.style.maxHeight = "500px";
+    } else {
+      menu.style.maxHeight = "0px";
+    }
+  }
+
+  window.onload = function () {
+    if (window.innerWidth <= 768) {
+      document.getElementById("menulist").style.maxHeight = "0px";
+    }
+  };
+</script>
+{% if messages %}
+  <div style="max-width: 900px; margin: 20px auto;">
+    {% for message in messages %}
+      <div style="
+        padding: 15px;
+        background-color: {% if message.tags == 'success' %}#d4edda
+                          {% elif message.tags == 'error' %}#f8d7da
+                          {% else %}#cce5ff{% endif %};
+        color: {% if message.tags == 'success' %}#155724
+               {% elif message.tags == 'error' %}#721c24
+               {% else %}#004085{% endif %};
+        border: 1px solid {% if message.tags == 'success' %}#c3e6cb
+                          {% elif message.tags == 'error' %}#f5c6cb
+                          {% else %}#b8daff{% endif %};
+        border-radius: 5px;
+        margin-bottom: 15px;
+        text-align: center;
+        font-weight: 500;
+      ">
+        {{ message }}
+      </div>
+    {% endfor %}  
+  </div>
+{% endif %}
+
+
+<div class="summary-section">
+  {% for category, total in category_totals.items %}
+    {% with category|lower as catname %}
+    <div class="summary-box 
+        {% if "education" in catname %}education{% elif "maintenance" in catname %}maintenance
+        {% elif "asnaf" in catname %}asnaf{% elif "utilities" in catname %}utilities
+        {% elif "community" in catname %}community{% elif "others" in catname %}others{% endif %}">
+      <h3>{{ category }}</h3>
+      <p>RM {{ total|floatformat:2 }}</p>
+    </div>
+    {% endwith %}
+  {% endfor %}
+
+</div>
+
+
+
+<div class="container">
+  <h1>Allocate Fund to Category</h1>
+
+  <form method="get" class="filter-form">
+    <div>
+      <label>Year:</label><br />
+      <select name="year">
+        <option value="">All</option>
+        {% for y in years %}
+          <option value="{{ y }}" {% if y|stringformat:"s" == request.GET.year %}selected{% endif %}>{{ y }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label>Month:</label><br />
+      <select name="month">
+        <option value="">All</option>
+        {% for m in months %}
+          <option value="{{ m.0 }}" {% if m.0|stringformat:"s" == request.GET.month %}selected{% endif %}>{{ m.1 }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div style="margin-top: 24px;">
+      <button type="submit" class="primary_btn">Apply Filter</button>
+    </div>
+  </form>
+
+
+  <form method="post" class="allocate-form">
+    {% csrf_token %}
+<div>
+  <label>Month</label>
+  <select name="month" required>
+    <option value="">-- Select Month --</option>
+    {% for m in months %}
+      <option value="{{ m.0 }}" {% if m.0|stringformat:"s" == request.GET.month %}selected{% endif %}>{{ m.1 }}</option>
+    {% endfor %}
+  </select>
+</div>
+<div>
+  <label>Year</label>
+  <select name="year" required>
+    <option value="">-- Select Year --</option>
+    {% for y in years %}
+      <option value="{{ y }}" {% if y|stringformat:"s" == request.GET.year %}selected{% endif %}>{{ y }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+    <div>
+      <label>Category</label>
+      <select name="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="Education Program">Education Program</option>
+        <option value="Mosque Maintenance">Mosque Maintenance</option>
+        <option value="Asnaf Support">Asnaf Support</option>
+        <option value="Utilities">Utilities</option>
+        <option value="Community Event">Community Event</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+    <div>
+      <label>Amount (RM)</label>
+      <input type="number" step="0.01" name="amount" required />
+    </div>
+    <div style="grid-column: span 2;">
+      <label>Description</label>
+      <textarea name="description" rows="3" required></textarea>
+    </div>
+    <div class="form-submit">
+      <button type="submit" class="primary_btn">Allocate Fund</button>
+    </div>
+  </form>
+
+  <table class="financial-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Amount (RM)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in allocations %}
+      <tr>
+        <td>{{ item.date|date:"F Y" }}</td>
+        <td>{{ item.category }}</td>
+        <td>{{ item.description }}</td>
+        <td>RM {{ item.amount|floatformat:2 }}</td>
+        <td>
+          <a href="{% url 'edit_allocate_fund' item.allocateid %}" class="action-btn edit-btn">Edit</a>
+          <a href="{% url 'delete_allocate_fund' item.allocateid %}" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this allocation?');">Delete</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" style="text-align: center;">No allocation records found.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<footer  id="contact-section" style="background: rgb(179, 229, 216); color: #1c5451; padding: 60px 30px 30px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; max-width: 1200px; margin: auto;">
+    
+
+    <div style="flex: 1 1 300px;">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo" style="width: 180px; margin-bottom: 15px;">
+      <p style="line-height: 1.7; font-size: 14px; color: #1c5451;">
+        SadaqahEase is your trusted platform to support mosque initiatives, community programs, and charitable causes. 
+        Empower change through transparent and impactful giving.
+      </p>
+    </div>
+
+
+    <div style="flex: 1 1 150px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><a href="{% url 'treasurer_mainpage' %}"style="color: #1c5451; text-decoration: none;">Home</a></li>
+        <li><a href="{% url 'record_donation_page' %}"style="color: #1c5451; text-decoration: none;">Donation</a></li>
+        <li><a href="{% url 'financial_page' %}"style="color: #1c5451; text-decoration: none;">Financial</a></li>
+        <li><a href="{% url 'manage_campaigns' %}"style="color: #1c5451; text-decoration: none;">Campaign</a></li>
+        <li><a href="{% url 'allocate_fund_page' %}"style="color: #1c5451; text-decoration: none;">Fund</a></li>
+      </ul>
+    </div>
+
+    <div style="flex: 1 1 300px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Contact Us</h3>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-map-marker-alt"></i> Masjid Bandar Saujana Putra, Selangor</p>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-envelope"></i> info@sadaqahEase.org</p>
+      <p style="font-size: 14px;"><i class="fas fa-phone-alt"></i> +60 12-345 6789</p>
+    </div>
+
+  </div>
+
+  <hr style="margin: 40px auto 20px; border-color: rgba(28, 84, 81, 0.2); width: 90%;">
+  <p style="text-align: center; font-size: 13px; color: #1c5451;">&copy; 2025 SadaqahEase. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

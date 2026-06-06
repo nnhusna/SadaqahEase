@@ -1,0 +1,447 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SadaqahEase Homepage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Poppins", sans-serif;
+        background-color: rgb(255, 255, 255);
+    }
+    header a {
+      text-decoration: none;
+    }
+
+    .flex_space {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header {
+      height: 90px;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgb(179, 229, 216);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo img {
+      padding: 10px;
+      width: 250px;
+      height: 80px;
+    }
+
+    .navbar ul {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
+
+    .navbar ul li {
+      margin: 0 10px;
+      text-transform: uppercase;
+    }
+
+    .navbar ul li a {
+      color: grey;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #12686e;
+    }
+
+    button {
+      border: none;
+      background: none;
+      outline: none;
+      transition: 0.5s;
+      cursor: pointer;
+    }
+
+    .primary_btn {
+      padding: 15px 40px;
+      background: #1c5451;
+      font-weight: bold;
+      color: white;
+      border-radius: 6px;
+    }
+
+    .primary_btn:hover {
+      background-color: #12686e;
+    }
+
+    .registerbtn {
+      padding: 14px 30px;
+      border-radius: 6px;
+      font-weight: bold;
+      color: #1c5451;
+      border: 2px solid rgb(28, 84, 81);
+      background-color: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .registerbtn:hover {
+      background-color: #1c5451;
+      color: white;
+    }
+
+    .navbar span {
+      display: none;
+    }
+
+    @media only screen and (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 90px;
+        left: 0;
+        width: 100%;
+        background: rgb(179, 229, 216);
+        flex-direction: column;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+        text-align: center;
+        z-index: 9;
+      }
+
+      .navbar ul li {
+        margin: 15px 0;
+      }
+
+      .navbar span {
+        color: black;
+        display: block;
+        cursor: pointer;
+        line-height: 90px;
+        font-size: 25px;
+      }
+    }
+
+    /* Slider */
+    .slider-section {
+      width: 100%;
+      height: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-wrapper {
+      display: flex;
+      height: 100%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .slider-card {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slider-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(40%);
+    }
+
+    .slider-overlay {
+      position: absolute;
+      top: 50%;
+      left: 5%;
+      transform: translateY(-50%);
+      color: #fff;
+      max-width: 500px;
+    }
+
+    .slider-overlay h3 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .slider-overlay p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .donate-btn {
+      padding: 10px 20px;
+      background: #fcb900;
+      color: #1c5451;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: 0.3s;
+    }
+
+    .donate-btn:hover {
+      background: #f5a700;
+    }
+
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      transition: color 0.3s;
+    }
+
+    .slider-arrow:hover {
+      color: #fcb900;
+    }
+
+    .slider-arrow.left {
+      left: 20px;
+    }
+
+    .slider-arrow.right {
+      right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .slider-overlay h3 {
+        font-size: 1.5rem;
+      }
+
+      .slider-overlay p {
+        font-size: 0.9rem;
+      }
+    }
+
+    .intro-section {
+    text-align: center;
+    padding: 40px 20px 20px;
+    background-color: #fdfdfd;
+  }
+
+  .intro-section h2 {
+    font-size: 24px;
+    color: #1c5451;
+    margin-bottom: 10px;
+  }
+
+  .intro-section p {
+    font-size: 15px;
+    color: #555;
+  }
+
+  .stats-container {
+    display: flex;
+    justify-content: space-around;
+    background: #f9f9f9;
+    padding: 40px 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .stat-box {
+    flex: 1;
+    min-width: 220px;
+    margin: 15px;
+  }
+
+  .stat-box h2 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 8px;
+  }
+
+  .stat-box p {
+    font-size: 26px;
+    font-weight: bold;
+    color: #1c5451;
+  }
+
+  html {
+  scroll-behavior: smooth;
+}
+
+
+
+
+  </style>
+</head>
+
+<body>
+  {% load static %}
+  <header>
+    <div class="flex_space">
+      <div class="logo">
+        <img src="{% static 'Sadaqahlogo.png' %}" alt="Logo" />
+      </div>
+      <div class="navbar">
+        <ul id="menulist">
+          <li><a href="{% url 'SadaqahEase' %}">Home</a></li>
+          <li><a href="{% url 'login_page' %}">Campaign</a></li>
+          <li><a href="{% url 'login_page' %}">Donate</a></li>
+          <li><a href="#about-section">About Us</a></li>
+          <li><a href="#contact-section">Contact Us</a></li>
+          <li><a href="{% url 'login_page' %}"><button class="primary_btn">Login</button></a></li>
+          <li><a href="{% url 'signup_donor' %}"><button class="registerbtn">Register</button></a></li>
+        </ul>
+        <span class="fa fa-bars" onclick="menutoggle()"></span>
+      </div>
+    </div>
+  </header>
+
+  <section class="slider-section">
+    <button class="slider-arrow left">&#10094;</button>
+    <button class="slider-arrow right">&#10095;</button>
+    <div class="slider-wrapper">
+      {% for campaign in campaigns %}
+      <div class="slider-card">
+        <img src="{{ campaign.image_url }}" alt="{{ campaign.title }}">
+        <div class="slider-overlay">
+          <h3>{{ campaign.title }}</h3>
+          <p>{{ campaign.description|truncatechars:150 }}</p>
+          <a href="{% url 'login_page' %}" class="donate-btn">Donate Now</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <script>
+    let currentIndex = 0;
+    const cards = document.querySelectorAll('.slider-card');
+    const totalSlides = cards.length;
+    const wrapper = document.querySelector('.slider-wrapper');
+
+    function updateSlider() {
+      wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      updateSlider();
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+      updateSlider();
+    }
+
+    document.querySelector('.slider-arrow.right').addEventListener('click', nextSlide);
+    document.querySelector('.slider-arrow.left').addEventListener('click', prevSlide);
+
+    setInterval(nextSlide, 5000); // Auto-slide every 5s
+
+    function menutoggle() {
+      const menu = document.getElementById("menulist");
+      if (menu.style.maxHeight === "0px" || menu.style.maxHeight === "") {
+        menu.style.maxHeight = "500px";
+      } else {
+        menu.style.maxHeight = "0px";
+      }
+    }
+
+    window.onload = function () {
+      if (window.innerWidth <= 768) {
+        document.getElementById("menulist").style.maxHeight = "0px";
+      }
+    };
+  </script>
+   <div class="intro-section">
+  <h2>Your generosity sustains our community</h2>
+  <p>Every contribution supports the mosque’s mission, from daily prayers to community outreach.</p>
+</div>
+  <div class="stats-container">
+  <div class="stat-box">
+    <h2>Total Fund Raised</h2>
+    <p>RM {{ total_donations|intcomma }}</p>
+  </div>
+  <div class="stat-box">
+    <h2>Total Donors</h2>
+    <p>{{ total_donors|intcomma }}</p>
+  </div>
+  <div class="stat-box">
+    <h2>Total Campaign</h2>
+    <p>{{ total_campaigns }}</p>
+  </div>
+</div>
+  <!-- ✅ ABOUT US SECTION -->
+<div id="about-section" style="display: flex; flex-wrap: wrap; padding: 60px 30px; background-color: #f6fdfc; align-items: center; gap: 40px;">
+  <div style="flex: 1 1 400px; text-align: center;">
+    <img src="{% static 'about-sadaqah.png' %}" alt="About SadaqahEase" style="width: 100%; max-width: 450px; border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.08);">
+  </div>
+  <div style="flex: 1 1 400px;">
+    <h2 style="color: #1c5451; font-size: 26px; margin-bottom: 15px;">About SadaqahEase</h2>
+    <p style="font-size: 15px; color: #555; line-height: 1.8; margin-bottom: 25px;">
+      SadaqahEase is a platform dedicated to supporting the financial needs of our local mosque and its charitable efforts. 
+      Through transparent campaigns and easy-to-use features, we empower individuals to contribute towards community projects, 
+      daily operations, and those in need. Together, we can make a lasting impact in the name of compassion and faith.
+    </p>
+    <a href="{% url 'login_page' %}" style="padding: 12px 24px; background-color: #1c5451; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">
+      Sadaqah Now
+    </a>
+  </div>
+</div>
+
+<footer  id="contact-section" style="background: rgb(179, 229, 216); color: #1c5451; padding: 60px 30px 30px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 40px; max-width: 1200px; margin: auto;">
+    
+
+    <div style="flex: 1 1 300px;">
+      <img src="{% static 'Sadaqahlogo.png' %}" alt="SadaqahEase Logo" style="width: 180px; margin-bottom: 15px;">
+      <p style="line-height: 1.7; font-size: 14px; color: #1c5451;">
+        SadaqahEase is your trusted platform to support mosque initiatives, community programs, and charitable causes. 
+        Empower change through transparent and impactful giving.
+      </p>
+    </div>
+
+
+    <div style="flex: 1 1 150px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Quick Links</h3>
+      <ul style="list-style: none; padding: 0; line-height: 2;">
+        <li><a href="{% url 'SadaqahEase' %}" style="color: #1c5451; text-decoration: none;">Home</a></li>
+        <li><a href="{% url 'login_page' %}" style="color: #1c5451; text-decoration: none;">Campaigns</a></li>
+        <li><a href="{% url 'login_page' %}" style="color: #1c5451; text-decoration: none;">Donate</a></li>
+        <li><a href="#about-section" style="color: #1c5451; text-decoration: none;">About Us</a></li>
+        <li><a href="#contact-section" style="color: #1c5451; text-decoration: none;">Contact</a></li>
+      </ul>
+    </div>
+
+ 
+    <div style="flex: 1 1 300px;">
+      <h3 style="margin-bottom: 15px; font-size: 18px; color: #1c5451;">Contact Us</h3>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-map-marker-alt"></i> Masjid Bandar Saujana Putra, Selangor</p>
+      <p style="font-size: 14px; margin-bottom: 8px;"><i class="fas fa-envelope"></i> info@sadaqahEase.org</p>
+      <p style="font-size: 14px;"><i class="fas fa-phone-alt"></i> +60 12-345 6789</p>
+    </div>
+
+  </div>
+
+  <hr style="margin: 40px auto 20px; border-color: rgba(28, 84, 81, 0.2); width: 90%;">
+  <p style="text-align: center; font-size: 13px; color: #1c5451;">&copy; 2025 SadaqahEase. All rights reserved.</p>
+</footer>
+</body>
+</html>
